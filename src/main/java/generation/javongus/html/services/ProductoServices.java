@@ -6,17 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import generation.javongus.html.model.Estilo;
 import generation.javongus.html.model.Producto;
+import generation.javongus.html.model.ProductoEstiloDTO;
+
+import generation.javongus.html.repository.EstiloRepository;
 import generation.javongus.html.repository.ProductoRespository;
 
 @Service
 public class ProductoServices {
 //	Instancia del repositiorio
 	private final ProductoRespository productoRe;
+	private final EstiloRepository estiloRe;
 
 	@Autowired
-	public ProductoServices(ProductoRespository productoRe) {
+	public ProductoServices(ProductoRespository productoRe,
+			EstiloRepository estiloRe) {
 		this.productoRe = productoRe;
+		this.estiloRe = estiloRe;
 	}
 	
 //	CREATE
@@ -30,6 +37,33 @@ public class ProductoServices {
 			productoRe.save(producto);
 		}
 
+	}
+	//	crear con estilo al mismo tiempo
+	
+	public void createProductoWithEstilo(ProductoEstiloDTO productoEstiloDTO) {
+		Producto producto = productoEstiloDTO.getProducto();
+	    Estilo estilo = productoEstiloDTO.getEstilo();
+	    
+		Estilo estiloExistente = buscarEstiloExistente(estilo);
+	    if (estiloExistente != null) {
+	    	estiloExistente.setProducto(producto);
+	      producto.getEstilos().add(estiloExistente);
+	      
+	    } else {
+	      estilo = estiloRe.save(estilo);
+	      producto.getEstilos().add(estilo);
+	      estilo.setProducto(producto);
+	    }
+	    productoRe.save(producto);
+    }
+//	///////////auxiliar///////////////////////////////////////////
+	private Estilo buscarEstiloExistente(Estilo estilo) {
+	    List<Estilo> estilos = estiloRe
+	        .buscarPorAtributosIgnorandoMayusculas(estilo.getHexa(), estilo.getImagen_back(), estilo.getImagen_front(), estilo.getImagen_left(), estilo.getImagen_right());
+	    if (!estilos.isEmpty()) {
+	      return estilos.get(0);
+	    }
+	    return null;
 	}
 //	READ
 	public List<Producto> leerProductos() {
@@ -73,7 +107,7 @@ public class ProductoServices {
 	
 //	UPDATE
 	public void actualizarProducto(Long prodId,String nombre, String descripcion, Integer cantidad, Double precio,
-			Integer target, String tipo, Long marcaId) {
+			Integer target, String tipo, Long marcaId, Long estiloId) {
 		if(productoRe.existsById(prodId)) {
 //			Esta onda es una función vieja que talvez no se debería de usar
 			@SuppressWarnings("deprecation")
@@ -95,6 +129,16 @@ public class ProductoServices {
 	        if (target!=null) productoABuscar.setTarget(target);
 	        if (tipo!=null) productoABuscar.setTipo(tipo);
 	        if(marcaId!=null) productoABuscar.setMarca_id(marcaId);
+	        if(estiloId!=null) {
+	        	if(estiloRe.existsById(estiloId)) {
+	        		@SuppressWarnings("deprecation")
+					Estilo estilo = estiloRe.getById(estiloId);
+	        		productoABuscar.getEstilos().add(estilo);
+	        		estilo.setProducto(productoABuscar);
+	        	}else {
+	        		System.out.println("El estilo no existe");
+	        	}
+	        }
 	        productoRe.save(productoABuscar);
 
 		}else {

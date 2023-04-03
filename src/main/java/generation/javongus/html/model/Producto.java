@@ -1,10 +1,15 @@
 package generation.javongus.html.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,14 +27,31 @@ public class Producto {
 	private String tipo;
 	private Long marca_id;
 	
-	
+//	Relación con estilos
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Estilo> estilos = new HashSet<>();
+		
 //	CONSTRUCTORES
 //	vacio
 	public Producto() {
 		
 	}
+//	completo con estilos
+	public Producto(Long id, String nombre, String descripcion, Integer cantidad, Double precio, Integer target,
+			String tipo, Long marca_id, Set<Estilo> estilos) {
+		
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.cantidad = cantidad;
+		this.precio = precio;
+		this.target = target;
+		this.tipo = tipo;
+		this.marca_id = marca_id;
+		this.estilos = estilos;
+	}
 	
-//	completo
+//	completo sin estilos
 	public Producto(Long id, String nombre, String descripcion, Integer cantidad, Double precio, Integer target,
 			String tipo, Long marca_id) {
 		this.id = id;
@@ -41,6 +63,7 @@ public class Producto {
 		this.tipo = tipo;
 		this.marca_id = marca_id;
 	}
+
 //	GETTER AND SETTER
 
 	public Long getId() {
@@ -107,7 +130,13 @@ public class Producto {
 	public void setMarca_id(Long marca_id) {
 		this.marca_id = marca_id;
 	}
-
+	
+	public Set<Estilo> getEstilos() {
+		return estilos;
+	}
+	public void setEstilos(Set<Estilo> estilos) {
+		this.estilos = estilos;
+	}
 	//	toString
 	@Override
 	public String toString() {
@@ -116,14 +145,6 @@ public class Producto {
 	}
 	
 
-	
-	
-	
-
-	
-	
-	
-	
 	
 	
 	

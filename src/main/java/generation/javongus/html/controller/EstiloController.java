@@ -13,46 +13,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import generation.javongus.html.model.Direccion;
-import generation.javongus.html.services.DireccionServices;
+import generation.javongus.html.model.Estilo;
+import generation.javongus.html.services.EstiloServices;
 
 @CrossOrigin(origins = "*", 
 methods = { RequestMethod.GET, RequestMethod.POST, 
 		RequestMethod.DELETE, RequestMethod.PUT })
 @RestController
-@RequestMapping(path = "/html/direccion/")
-public class DireccionController {
-	
-	private final DireccionServices direccionSer;
+@RequestMapping(path = "/html/estilo/")
+public class EstiloController {
+	private final EstiloServices estiloSer;
 	
 	@Autowired
-	public DireccionController(DireccionServices direccionSer) {
-		this.direccionSer = direccionSer;
+	public EstiloController(EstiloServices estiloSer) {
+		this.estiloSer = estiloSer;
 	}
 	
 //	GET
 	@GetMapping
-	public List<Direccion> getDireccion() {
-		return direccionSer.leerDirecciones();
+	public List<Estilo> getEstilo() {
+		return estiloSer.leerEstilos();
 	}
 	
-	@GetMapping(path = "/{direccionId}") 
-	public Direccion getDireccion(@PathVariable("direccionId") Long direccionId) {
-		return direccionSer.leerDireccion(direccionId);
+	@GetMapping(path = "/{estiloId}") 
+	public Estilo getEstilo(@PathVariable("estiloId") Long estiloId) {
+		return estiloSer.leerEstilo(estiloId);
 	}
 	
 //	POST
 	@PostMapping
-	public void postDireccion(@RequestBody Direccion direccion) {
-		direccionSer.crearDireccion(direccion);
+	public void postEstilo(@RequestBody Estilo estilo) {
+		estiloSer.crearEstilo(estilo);
 	}
-	
 //	DELETE
-	@DeleteMapping(path = "{direccionId}")
-	public void deleteDireccion(@PathVariable("direccionId") Long direccionId) {
-		direccionSer.borrarDireccion(direccionId);
+	@DeleteMapping(path = "{estiloId}")
+	public void deleteEstilo(@PathVariable("estiloId") Long estiloId) {
+		estiloSer.borrarEstilo(estiloId);
 	}
-
-	
 	
 }

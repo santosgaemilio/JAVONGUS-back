@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import generation.javongus.html.model.Producto;
+import generation.javongus.html.model.ProductoEstiloDTO;
+
 import generation.javongus.html.services.ProductoServices;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,6 +75,10 @@ public class ProductoController {
 	public void postProducto(@RequestBody Producto producto) {
 		productoSer.crearProducto(producto);
 	}
+	@PostMapping(path = "/create-with-estilo")
+	public void createProductoWithEstilo(@RequestBody ProductoEstiloDTO productoEstiloDTO) {
+        productoSer.createProductoWithEstilo(productoEstiloDTO);
+    }
 //	HTTP PUT
 	@PutMapping(path = "{prodId}") 
 	public void putProducto(@PathVariable("prodId") Long prodId,
@@ -82,8 +88,9 @@ public class ProductoController {
 			@RequestParam(required = false) Integer cantidad,
 			@RequestParam(required = false) Integer target,
 			@RequestParam(required = false) String tipo,
-			@RequestParam(required = false) Long marcaId) {
-		productoSer.actualizarProducto(prodId, nombre, descripcion, cantidad, precio, target, tipo, marcaId);
+			@RequestParam(required = false) Long marcaId,
+			@RequestParam(required = false) Long estiloId) {
+		productoSer.actualizarProducto(prodId, nombre, descripcion, cantidad, precio, target, tipo, marcaId,estiloId);
 	}
 //	HTTP DELETE
 	@DeleteMapping(path = "{prodId}")

@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class Direccion {
 	 private String estado;
 	 private String municipio;
 	 
+	 @JsonIgnore
 	 @ManyToMany(mappedBy = "direcciones")
 	 private Set<Usuario> usuarios = new HashSet<>();
 	 
