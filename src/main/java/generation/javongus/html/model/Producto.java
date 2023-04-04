@@ -1,7 +1,11 @@
 package generation.javongus.html.model;
 
+
 import java.util.HashSet;
+
 import java.util.Set;
+
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -30,12 +34,16 @@ public class Producto {
 //	Relación con estilos
 	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Estilo> estilos = new HashSet<>();
+	
 		
 //	CONSTRUCTORES
 //	vacio
 	public Producto() {
 		
 	}
+	
+
+
 //	completo con estilos
 	public Producto(Long id, String nombre, String descripcion, Integer cantidad, Double precio, Integer target,
 			String tipo, Long marca_id, Set<Estilo> estilos) {
@@ -137,6 +145,9 @@ public class Producto {
 	public void setEstilos(Set<Estilo> estilos) {
 		this.estilos = estilos;
 	}
+	
+	
+
 	//	toString
 	@Override
 	public String toString() {

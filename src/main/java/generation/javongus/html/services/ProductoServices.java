@@ -47,7 +47,7 @@ public class ProductoServices {
 		Estilo estiloExistente = buscarEstiloExistente(estilo);
 	    if (estiloExistente != null) {
 	    	estiloExistente.setProducto(producto);
-	      producto.getEstilos().add(estiloExistente);
+	    	producto.getEstilos().add(estiloExistente);
 	      
 	    } else {
 	      estilo = estiloRe.save(estilo);
