@@ -2,6 +2,7 @@ package generation.javongus.html.services;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,11 @@ public class EstiloServices {
 	}
 	
 //	CREATE
-	public void crearEstilo(Estilo estilo) {
+	public Long crearEstilo(Estilo estilo) {
 		estiloRe.save(estilo);
+		Response response = new Response();
+		response.setHeader("Location", "/html/estilo/" + estilo.getId()); // Setea la ubicación del nuevo recurso en el header de la respuesta
+	    return estilo.getId(); // Devuelve el ID del nuevo usuario
 	}
 //	READ
 	public List<Estilo> leerEstilos() {
@@ -31,6 +35,8 @@ public class EstiloServices {
 		return estiloRe.findById(id).orElseThrow(()-> new IllegalStateException("El estilo "
 				+ "con el id " +id+  " no existe"));
 	}
+	public Estilo findLastUser() {
+        return estiloRe.findTopByOrderByIdDesc();}
 //	UPDATE (PENDIENTE)
 //	DELETE
 	public void borrarEstilo(Long id) {
