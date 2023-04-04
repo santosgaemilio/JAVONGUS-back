@@ -34,7 +34,10 @@ public class EstiloController {
 	public List<Estilo> getEstilo() {
 		return estiloSer.leerEstilos();
 	}
-	
+	 @GetMapping("/last")
+	    public Estilo getLastUser() {
+	        return estiloSer.findLastUser();
+	    }
 	@GetMapping(path = "/{estiloId}") 
 	public Estilo getEstilo(@PathVariable("estiloId") Long estiloId) {
 		return estiloSer.leerEstilo(estiloId);
