@@ -2,6 +2,7 @@ package generation.javongus.html.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import jakarta.persistence.Table;
 public class Estilo {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @Column(name="id", unique = true, nullable = false) 
 	 private Long id;
 	 private String hexa;
 	 private String imagen_back;

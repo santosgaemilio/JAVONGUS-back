@@ -5,38 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import generation.javongus.html.model.Carrito;
 import generation.javongus.html.model.CarritoProducto;
 
-import generation.javongus.html.model.Producto;
 import generation.javongus.html.repository.CarritoProductoRepository;
-import generation.javongus.html.repository.CarritoRepository;
+
 
 @Service
 public class CarritoProductoService {
 	private final CarritoProductoRepository carritoProductoRe;
-	private final CarritoRepository carritoRe;
+//	private final CarritoRepository carritoRe;
+//	Se iba a usar para crear el carrito junto con el producto pero no se hizo
 	
 	@Autowired
-	public CarritoProductoService(CarritoProductoRepository carritoProductoRe,CarritoRepository carritoRe) {
+	public CarritoProductoService(CarritoProductoRepository carritoProductoRe) {
 		this.carritoProductoRe = carritoProductoRe;
-		this.carritoRe = carritoRe;
 	}
 	
 //	CREATE
-	
-	
-	//	
-	
+//	No tiene método create por que siempre se van a crear como parte de un carrito!
 	
 //	READ
 	public List<CarritoProducto> leerCarritoProducto() {
 		return carritoProductoRe.findAll();
 	}
-//	public List<CarritoProducto> getCartProductsByCartId(Long cartId) {
-//        return carritoProductoRe.findById(cartId);
-//    }
+
 //	DELETE
+//	Incluso esta función talvez no sea buena, por que tiene que trabajar en conjunto con el carrito
 	public void borrarEstilo(Long id) {
 		if(carritoProductoRe.existsById(id)) {
 			carritoProductoRe.deleteById(id);

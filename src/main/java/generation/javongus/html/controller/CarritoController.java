@@ -45,6 +45,7 @@ public class CarritoController {
 		carritoSer.crearCarrito();
 	}
 //	///////////////// TEST //////////////////////////////
+//	ADD A PRODUCT TO A CART (El carrito debe estar creado)
 	@PostMapping("/add")
 	public void addCarrito(@RequestParam("carritoId") Long carritoId,
 			@RequestParam("productoId") Long productoId, @RequestParam("cantidad") Integer cantidad){
