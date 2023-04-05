@@ -21,11 +21,11 @@ public class EstiloServices {
 	}
 	
 //	CREATE
-	public Long crearEstilo(Estilo estilo) {
+	public void crearEstilo(Estilo estilo) {
 		estiloRe.save(estilo);
-		Response response = new Response();
-		response.setHeader("Location", "/html/estilo/" + estilo.getId()); // Setea la ubicación del nuevo recurso en el header de la respuesta
-	    return estilo.getId(); // Devuelve el ID del nuevo usuario
+//		Response response = new Response();
+//		response.setHeader("Location", "/html/estilo/" + estilo.getId()); // Setea la ubicación del nuevo recurso en el header de la respuesta
+//	    return estilo.getId(); // Devuelve el ID del nuevo usuario
 	}
 //	READ
 	public List<Estilo> leerEstilos() {
