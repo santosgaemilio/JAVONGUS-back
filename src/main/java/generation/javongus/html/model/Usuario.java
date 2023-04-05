@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,6 +36,11 @@ public class Usuario {
 			  inverseJoinColumns = @JoinColumn(name = "direccion_id")
 	  )
 	  private Set<Direccion> direcciones = new HashSet<>();
+	  
+	  @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)
+	  private Set<MetodoPago> metodoP = new HashSet<>();
+	  
+	  
 	 
 
 	public Usuario() {
@@ -42,7 +48,7 @@ public class Usuario {
 	}
 
 	public Usuario(Long id, String nombre, String apellido, String correo, String password, String telefono,
-			Set<Direccion> direcciones) {
+			Set<Direccion> direcciones, Set<MetodoPago> metodoP) {
 		
 		this.id = id;
 		this.nombre = nombre;
@@ -51,10 +57,9 @@ public class Usuario {
 		this.password = password;
 		this.telefono = telefono;
 		this.direcciones = direcciones;
+		this.metodoP =  metodoP;
 	}
 	
-	
-
 	
 	public Usuario(Long id, String nombre, String apellido, String correo, String password, String telefono) {
 		super();
@@ -120,6 +125,14 @@ public class Usuario {
 
 	public void setDirecciones(Set<Direccion> direcciones) {
 		this.direcciones = direcciones;
+	}
+
+	public Set<MetodoPago> getMetodoP() {
+		return metodoP;
+	}
+
+	public void setMetodoP(Set<MetodoPago> metodoP) {
+		this.metodoP = metodoP;
 	}
 	
 	

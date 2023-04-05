@@ -8,7 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -22,16 +23,23 @@ public class Carrito {
 	
 	@OneToMany(mappedBy = "carrito")
 	private List<CarritoProducto> carritoProducto;
+	
+	@ManyToOne
+	@JoinColumn(name = "metodo_id")
+	
+	private MetodoPago metodo;
+	
 
 //	Constructores
 	public Carrito() {
 		super();
 	}
 
-	public Carrito(Long id, List<CarritoProducto> carritoProducto) {
+	public Carrito(Long id, List<CarritoProducto> carritoProducto, MetodoPago metodo) {
 		super();
 		this.id = id;
 		this.carritoProducto = carritoProducto;
+		this.metodo = metodo;
 	}
 //	Getter and Setter
 	public Long getId() {
@@ -48,6 +56,14 @@ public class Carrito {
 
 	public void setCarritoProducto(List<CarritoProducto> carritoProducto) {
 		this.carritoProducto = carritoProducto;
+	}
+
+	public MetodoPago getMetodo() {
+		return metodo;
+	}
+
+	public void setMetodo(MetodoPago metodo) {
+		this.metodo = metodo;
 	}
 	
 	

@@ -18,6 +18,15 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
 	implementation 'com.mysql:mysql-connector-j:8.0.31'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+	implementation 'org.springframework.security:spring-security-core:6.0.1'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+	implementation 'org.springframework.security:spring-security-web:6.0.1'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.0.4'
+	
+	
+	
 }
 
 tasks.named('test') {

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,14 +45,20 @@ public class CarritoController {
 	public void postCarrito() {
 		carritoSer.crearCarrito();
 	}
-//	///////////////// TEST //////////////////////////////
-//	ADD A PRODUCT TO A CART (El carrito debe estar creado)
+	//	///////////////// TEST //////////////////////////////
+	//	ADD A PRODUCT TO A CART (El carrito debe estar creado)
 	@PostMapping("/add")
 	public void addCarrito(@RequestParam("carritoId") Long carritoId,
 			@RequestParam("productoId") Long productoId, @RequestParam("cantidad") Integer cantidad){
 		carritoSer.addProductToCart(carritoId, productoId, cantidad);
 	}
 //	//////////////////////////////////////////////////////
+//	PUT
+	@PutMapping(path = "{carritoId}")
+	public void putMetodo(@PathVariable("carritoId") Long carritoId,
+			@RequestParam Long metodoId) {
+		carritoSer.agregarMetodo(carritoId, metodoId);
+	}
 //	DELETE
 	@DeleteMapping(path = "{carritoId}")
 	public void deleteCarrito(@PathVariable("carritoId") Long carritoId) {

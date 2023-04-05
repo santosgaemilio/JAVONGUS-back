@@ -61,8 +61,9 @@ public class UsuarioController {
 			@RequestParam(required = false) String correo,
 			@RequestParam(required = false) String password,
 			@RequestParam(required = false) String telefono,
-			@RequestParam(required = false) Long direccion_id) {
-		usuarioSer.actualizarUsuario(userId, nombre, apellido, correo, password, telefono, direccion_id);
+			@RequestParam(required = false) Long direccion_id,
+			@RequestParam(required = false) Long metodoId) {
+		usuarioSer.actualizarUsuario(userId, nombre, apellido, correo, password, telefono, direccion_id, metodoId);
 	}
 	
 //	DELETE

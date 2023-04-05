@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import generation.javongus.html.model.Carrito;
 import generation.javongus.html.model.CarritoProducto;
+import generation.javongus.html.model.MetodoPago;
 import generation.javongus.html.model.Producto;
 import generation.javongus.html.repository.CarritoProductoRepository;
 import generation.javongus.html.repository.CarritoRepository;
+import generation.javongus.html.repository.MetodoPagoRepository;
 import generation.javongus.html.repository.ProductoRespository;
 
 @Service
@@ -19,12 +21,14 @@ public class CarritoService {
 	private CarritoRepository carritoRe;
 	private CarritoProductoRepository carritoPRe;
 	private ProductoRespository productoRe;
+	private MetodoPagoRepository metodoRe;
 	
 	@Autowired
-	public CarritoService(CarritoRepository carritoRe,CarritoProductoRepository carritoPRe,ProductoRespository productoRe) {
+	public CarritoService(CarritoRepository carritoRe,CarritoProductoRepository carritoPRe,ProductoRespository productoRe, MetodoPagoRepository metodoRe) {
 		this.carritoRe = carritoRe;
 		this.carritoPRe = carritoPRe;
 		this.productoRe = productoRe;
+		this.metodoRe = metodoRe;
 	}
 //	CREATE
 	public Carrito crearCarrito() {
@@ -62,6 +66,24 @@ public class CarritoService {
 				+ "con el id " +id+  " no existe"));
 	}
 //	UPDATE (PENDIENTE)
+	public void agregarMetodo(Long carrito_id, Long metodo_id) {
+		if(carritoRe.existsById(carrito_id)){
+			@SuppressWarnings("deprecation")
+			Carrito carritoABuscar = carritoRe.getById(carrito_id);
+			if(metodo_id!=null && metodoRe.existsById(metodo_id)) {
+				@SuppressWarnings("deprecation")
+				MetodoPago metodo = metodoRe.getById(metodo_id);
+				carritoABuscar.setMetodo(metodo);
+				metodo.getCarrito().add(carritoABuscar);
+				carritoRe.save(carritoABuscar);
+				metodoRe.save(metodo);
+			}else {
+				System.out.println("El método no existe");
+			}
+		}else {
+			System.out.println("El carrito no existe");
+		}
+	}
 //	DELETE
 	
 	public void borrarCarrito(Long id) {

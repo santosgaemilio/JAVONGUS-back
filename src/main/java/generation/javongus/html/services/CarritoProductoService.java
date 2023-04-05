@@ -28,10 +28,21 @@ public class CarritoProductoService {
 	public List<CarritoProducto> leerCarritoProducto() {
 		return carritoProductoRe.findAll();
 	}
+//	UPDATE
+//	El UPDATE solo va a cambiar la cantidad
+	public void cambiarCantidad(Long cpId,Integer cantidad) {
+		if(carritoProductoRe.existsById(cpId)) {
+			@SuppressWarnings("deprecation")
+			CarritoProducto carritoP = carritoProductoRe.getById(cpId);
+			if(cantidad!=null && cantidad!=0) carritoP.setCantidad(cantidad);
+		}else {
+			System.out.println("Este producto no existe o no está en este carrito");
+		}
+	}
 
 //	DELETE
 //	Incluso esta función talvez no sea buena, por que tiene que trabajar en conjunto con el carrito
-	public void borrarEstilo(Long id) {
+	public void borrarCarritoProducto(Long id) {
 		if(carritoProductoRe.existsById(id)) {
 			carritoProductoRe.deleteById(id);
 		}else {

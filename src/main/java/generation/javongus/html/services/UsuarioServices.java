@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import generation.javongus.html.model.Direccion;
+import generation.javongus.html.model.MetodoPago;
 import generation.javongus.html.model.Usuario;
 import generation.javongus.html.model.UsuarioDireccionDTO;
 import generation.javongus.html.repository.DireccionRepository;
+import generation.javongus.html.repository.MetodoPagoRepository;
 import generation.javongus.html.repository.UsuarioRepository;
 
 @Service
@@ -17,11 +19,13 @@ public class UsuarioServices {
 //	Instancia usuario
 	private final UsuarioRepository usuarioRe;
 	private final DireccionRepository direccionRe;
+	private final MetodoPagoRepository metodoRe;
 
 	@Autowired
-	public UsuarioServices(UsuarioRepository usuarioRe, DireccionRepository direccionRe) {
+	public UsuarioServices(UsuarioRepository usuarioRe, DireccionRepository direccionRe, MetodoPagoRepository metodoRe) {
 		this.usuarioRe = usuarioRe;
 		this.direccionRe = direccionRe;
+		this.metodoRe = metodoRe;
 	}
 	
 	
@@ -75,7 +79,7 @@ public class UsuarioServices {
 	
 //	UPDATE
 	public void actualizarUsuario(Long userId,String nombre, String apellido, String correo, String password,
-			String telefono, Long direccion_id) {
+			String telefono, Long direccion_id, Long metodoId) {
 		if(usuarioRe.existsById(userId)) {
 //			Esta onda es una función vieja que talvez no se debería de usar
 			@SuppressWarnings("deprecation")
@@ -92,6 +96,16 @@ public class UsuarioServices {
 					usuarioABuscar.getDirecciones().add(direccion);
 				}else {
 					System.out.println("La dirección no existe");
+				}
+			}
+			if(metodoId!=null) {
+				if(metodoRe.existsById(metodoId)) {
+					@SuppressWarnings("deprecation")
+					MetodoPago metodoP = metodoRe.getById(metodoId);
+					usuarioABuscar.getMetodoP().add(metodoP);
+					metodoP.setUsuario(usuarioABuscar);
+				}else {
+					System.out.println("El método de pago no existe");
 				}
 			}
 	        usuarioRe.save(usuarioABuscar);
