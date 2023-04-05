@@ -76,6 +76,10 @@ public class UsuarioServices {
 		return usuarioRe.findById(id).orElseThrow(()-> new IllegalStateException("El usuario"
 				+ "con el id" +id+  " no existe"));
 	}
+	public Usuario leerUsuarioCorreo(String correo) {
+		return usuarioRe.findByCorreo(correo).orElseThrow(()-> new IllegalStateException("El usuario"
+				+ "con el correo" +correo+  " no existe"));
+	}
 	
 //	UPDATE
 	public void actualizarUsuario(Long userId,String nombre, String apellido, String correo, String password,

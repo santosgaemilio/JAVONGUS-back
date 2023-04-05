@@ -45,20 +45,21 @@ public class CarritoController {
 	public void postCarrito() {
 		carritoSer.crearCarrito();
 	}
-	//	///////////////// TEST //////////////////////////////
-	//	ADD A PRODUCT TO A CART (El carrito debe estar creado)
-	@PostMapping("/add")
-	public void addCarrito(@RequestParam("carritoId") Long carritoId,
-			@RequestParam("productoId") Long productoId, @RequestParam("cantidad") Integer cantidad){
-		carritoSer.addProductToCart(carritoId, productoId, cantidad);
-	}
-//	//////////////////////////////////////////////////////
+	
 //	PUT
 	@PutMapping(path = "{carritoId}")
 	public void putMetodo(@PathVariable("carritoId") Long carritoId,
 			@RequestParam Long metodoId) {
 		carritoSer.agregarMetodo(carritoId, metodoId);
 	}
+//	///////////////// TEST //////////////////////////////
+	//	ADD A PRODUCT TO A CART (El carrito debe estar creado)
+	@PutMapping(path = "/add/{carritoId}")
+	public void addCarrito(@PathVariable("carritoId") Long carritoId,
+			@RequestParam("productoId") Long productoId, @RequestParam("cantidad") Integer cantidad){
+		carritoSer.addProductToCart(carritoId, productoId, cantidad);
+	}
+//	//////////////////////////////////////////////////////
 //	DELETE
 	@DeleteMapping(path = "{carritoId}")
 	public void deleteCarrito(@PathVariable("carritoId") Long carritoId) {

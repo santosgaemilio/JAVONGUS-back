@@ -43,6 +43,10 @@ public class UsuarioController {
 	public Usuario getUsuario(@PathVariable("userId") Long userId) {
 		return usuarioSer.leerUsuario(userId);
 	}
+	@GetMapping(path = "/correo")
+	public Usuario getUsuario(@RequestParam("correo") String correo) {
+		return usuarioSer.leerUsuarioCorreo(correo);
+	}
 	
 //	POST
 	@PostMapping
